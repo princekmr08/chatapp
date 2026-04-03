@@ -6,6 +6,7 @@ import cookieParser from "cookie-parser";
 import userRoute from "./routes/user.routes.js";
 import messageRoute from "./routes/message.route.js";
 import { app ,server} from "./SocketIO/server.js";
+import path from "path";
 
 
 
@@ -32,6 +33,20 @@ app.get("/",(req,res)=>{
 //
 app.use("/api/user", userRoute);
 app.use("/api/message", messageRoute);
+
+
+//--code for deployment -----//
+
+if (process.env.NODE_ENV === "production") {
+    const dirPath = path.resolve();
+
+    app.use(express.static("./frontend/dist"));
+
+    // ✅ Catch-all route (SAFE)
+    app.use((req, res) => {
+        res.sendFile(path.join(dirPath, "./frontend/dist", "index.html"));
+    });
+}
 
 
 

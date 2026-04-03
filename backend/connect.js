@@ -2,7 +2,7 @@ import mongoose from "mongoose";
 
 
 const connectdB=async()=>{
-     await mongoose.connect("mongodb+srv://ecommerce_1234:2OsWDAUbuxuLIC10@cluster0.yanikzo.mongodb.net/chatapp")
+     await mongoose.connect(process.env.MONGO_URL)
         .then(()=>{
             console.log("MONGO DB connection is successful")
         }).catch((err)=>{
