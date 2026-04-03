@@ -15,6 +15,7 @@ dotenv.config({
     path:'./.env'
 
 })
+
 connectdB();
 
 
