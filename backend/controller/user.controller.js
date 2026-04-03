@@ -5,13 +5,16 @@ import bcrypt from "bcryptjs";
 export const signup = async (req, res) => {
   const { fullname, email, password, confirmPassword } = req.body;
   try {
+    console.log("A");
     if (password !== confirmPassword) {
       return res.status(400).json({ error: "Passwords do not match" });
     }
+    console.log("B");
     const user = await User.findOne({ email });
     if (user) {
       return res.status(400).json({ error: "User already registered" });
     }
+    console.log("C");
     // Hashing the password
     const hashPassword = await bcrypt.hash(password, 10);
     const newUser = await new User({
@@ -19,9 +22,12 @@ export const signup = async (req, res) => {
       email,
       password: hashPassword,
     });
+    console.log("D");
     await newUser.save();
+    console.log("E");
     if (newUser) {
       createTokenAndSaveCookie(newUser._id, res);
+      console.log("F");
       return res.status(201).json({
         message: "User created successfully",
         user: {
