@@ -31,7 +31,9 @@ app.use(cookieParser())
 //
 app.use("/api/user", userRoute);
 app.use("/api/message", messageRoute);
-
+app.use("/test", (req, res) => {
+    return res.json({ message: "Hello from server" });
+});
 
 //--code for deployment -----//
 
